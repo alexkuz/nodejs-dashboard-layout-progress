@@ -22,3 +22,5 @@ or with individual layouts:
 ```
 > nodejs-dashboard -l nodejs-dashboard-layout-progress/progress-status-layout -- node app.js
 ```
+
+![image](https://cloud.githubusercontent.com/assets/790659/23103530/7141ba90-f6cd-11e6-854c-1c9e7011ed05.png)
