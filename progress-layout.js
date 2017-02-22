@@ -44,7 +44,7 @@ module.exports = [
           module: "nodejs-dashboard-layout-progress/progress-view.js",
           include: "^\\[PROGRESS\\] (.*)",
           position: {
-            size: 8
+            size: 5
           }
         }
       ]

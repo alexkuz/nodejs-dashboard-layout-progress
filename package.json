@@ -1,6 +1,6 @@
 {
   "name": "nodejs-dashboard-layout-progress",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Layout for nodejs-dashboard with progress and status",
   "main": "index.js",
   "scripts": {

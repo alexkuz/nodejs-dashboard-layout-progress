@@ -1,6 +1,6 @@
 "use strict";
 
-var contrib = require("blessed-contrib");
+var CompactGauge = require("./compact-gauge");
 
 module.exports = function (BaseView) {
   var ProgressView = function ProgressView(options) {
@@ -9,7 +9,7 @@ module.exports = function (BaseView) {
     this.logProvider = options.logProvider;
     this.includeRegex = new RegExp(this.layoutConfig.include);
 
-    this.node = contrib.gauge({
+    this.node = new CompactGauge({
       label: " " + this.layoutConfig.title + " ",
       border: "line",
       style: {
@@ -51,18 +51,22 @@ module.exports = function (BaseView) {
   };
 
   ProgressView.prototype._update = function (data) {
-    var lines = data.replace(/\n$/, "");
+    var lines = data.replace(/\n$/, "").split("\n");
 
-    var lastLine = lines.split("\n")
-      .filter(function (line) {
-        return this.includeRegex.test(line);
-      }.bind(this))
-      .pop();
+    var lastLine = null;
+    for (var i = lines.length - 1; i >= 0; i--) {
+      if (this.includeRegex.test(lines[i])) {
+        lastLine = lines[i];
+        break;
+      }
+    }
 
-    if (lastLine) {
+    if (lastLine !== null) {
       var match = lastLine.match(this.includeRegex);
       var percent = Math.round(Math.max(0, Math.min(100, parseInt(match[1], 10))));
-      this.node.setPercent(percent < 1.001 ? percent / 100 : percent);
+      this.node.setPercent(percent);
+
+      this.parent.screen.render();
     }
   };
 
